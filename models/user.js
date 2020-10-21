@@ -6,6 +6,7 @@ const userSchmema = new Schema({
   lastname: { type: String, required: true },
   username: { type: String, required: true },
   email: { type: String, required: true },
+  gender: { type: String, required: true },
   password: { type: String, required: true },
   profilePic: { type: String },
   friends: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
