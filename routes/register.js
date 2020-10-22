@@ -2,14 +2,13 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
-const user = require("../models/user");
 
 router.get("/", (req, res) => res.json({ message: "Register" }));
 
 router.post("/", async (req, res, next) => {
   // console.log(req.body.json());
   console.log(req.body);
-  await user.findOne({ email: req.body.email }).exec((err, user) => {
+  await User.findOne({ email: req.body.email }).exec((err, user) => {
     if (user) {
       return res.json({ message: "This user already Exists" }).status(404);
     } else {
