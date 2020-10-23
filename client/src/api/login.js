@@ -11,9 +11,15 @@ const login = (formData) => {
     mode: "cors",
     headers: { "Content-Type": "application/json" },
   })
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    // .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      return res.json();
+    })
+    .then((data) => {
+      // console.log(data);
+      localStorage.setItem("jwtToken", `Bearer ${data.token}`);
+      console.log(localStorage.getItem("jwtToken"));
+    })
     .catch((err) => console.log(err));
 };
 

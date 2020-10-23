@@ -1,6 +1,9 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import homeApi from "../api/home";
 const Home = () => {
+  useEffect(() => {
+    homeApi();
+  }, []);
   return <div>Home</div>;
 };
 
