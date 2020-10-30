@@ -3,12 +3,20 @@ import { Form, Label } from "./styles/formStyle";
 import Button from "./styles/Button";
 import Input from "./styles/Input";
 import loginApi from "../api/login";
+import getUserData from "../api/getUserData";
 import { FormControl } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+
 const Login = () => {
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
     e.preventDefault();
     loginApi(e.target);
-    console.log("AAA");
+    getUserData();
+    // dispatch({
+    //   type: "LOG_IN",
+    // });
+    // useSelector((state) => console.log(state));
   };
   return (
     <Form onSubmit={handleSubmit}>

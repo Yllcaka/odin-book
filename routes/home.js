@@ -7,7 +7,7 @@ router.get("/", verifyToken, (req, res) => {
   jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
     if (err) return res.sendStatus(403);
     const { user } = authData;
-    console.log(user);
+    // console.log(user);
     return res.json(authData);
   });
 });

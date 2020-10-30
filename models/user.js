@@ -9,9 +9,9 @@ const userSchmema = new Schema({
   gender: { type: String, required: true },
   password: { type: String, required: true },
   profilePic: { type: String },
-  friends: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-  chats: { type: mongoose.SchemaTypes.ObjectId, ref: "Message" },
-  posts: { type: mongoose.SchemaTypes.ObjectId, ref: "Post" },
+  friends: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
+  chats: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Message" }],
+  posts: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Post" }],
 });
 
 module.exports = mongoose.model("User", userSchmema);

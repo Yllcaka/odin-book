@@ -1,6 +1,17 @@
 const express = require("express");
 const router = express.Router();
-
-router.get("/", (req, res) => res.json({ message: "Profile" }));
+const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../api/webToken");
+const user = require("../models/user");
+router.get("/", verifyToken, (req, res) => {
+  jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+    if (err) return res.sendStatus(403);
+    const {
+      user: { password, ...user },
+    } = authData;
+    console.log(user);
+    return res.json(user);
+  });
+});
 
 module.exports = router;
