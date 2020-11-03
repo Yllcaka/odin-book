@@ -13,7 +13,7 @@ const login = (formData) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data);
+      console.log(data);
       localStorage.setItem("jwtToken", `Bearer ${data.token}`);
     })
     .catch((err) => console.log(err));

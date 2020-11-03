@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Form, Label } from "./styles/formStyle";
 import Button from "./styles/Button";
 import Input from "./styles/Input";
@@ -9,15 +9,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     loginApi(e.target);
-    getUserData();
+    // getUserData();
     // dispatch({
     //   type: "LOG_IN",
     // });
     // useSelector((state) => console.log(state));
-  };
+  });
   return (
     <Form onSubmit={handleSubmit}>
       <FormControl>

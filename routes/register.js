@@ -8,8 +8,8 @@ router.get("/", (req, res) => res.json({ message: "Register" }));
 router.post("/", async (req, res, next) => {
   // console.log(req.body.json());
   console.log(req.body);
-  await User.findOne({ email: req.body.email }).exec((err, user) => {
-    if (user) {
+  await User.exists({ email: req.body.email }).exec((err, itExists) => {
+    if (itExists) {
       return res.json({ message: "This user already Exists" }).status(404);
     } else {
       bcrypt.hash(req.body.password, 10, (err, hashedPass) => {
