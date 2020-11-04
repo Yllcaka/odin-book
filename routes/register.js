@@ -7,9 +7,9 @@ router.get("/", (req, res) => res.json({ message: "Register" }));
 
 router.post("/", async (req, res, next) => {
   // console.log(req.body.json());
-  console.log(req.body);
-  await User.exists({ email: req.body.email }).exec((err, itExists) => {
-    if (itExists) {
+  try {
+    const userExists = await User.exists({ email: req.body.email });
+    if (userExists) {
       return res.json({ message: "This user already Exists" }).status(404);
     } else {
       bcrypt.hash(req.body.password, 10, (err, hashedPass) => {
@@ -20,7 +20,9 @@ router.post("/", async (req, res, next) => {
         res.json(data);
       });
     }
-  });
+  } catch (err) {
+    res.status(404).send(err);
+  }
 });
 
 module.exports = router;

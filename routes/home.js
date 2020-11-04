@@ -4,13 +4,34 @@ const jwt = require("jsonwebtoken");
 const { verifyToken, getTokenData } = require("../api/webToken");
 const User = require("../models/user");
 const Post = require("../models/post");
-router.get("/", verifyToken, (req, res) => {
-  jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
-    if (err) return res.sendStatus(403);
 
-    return res.json(authData);
-  });
+//Home
+router.get("/", verifyToken, async (req, res) => {
+  try {
+    let currentUserData = getTokenData(req.headers["authorization"]);
+    const currentUser = await User.findById(currentUserData._id)
+      .populate("friends")
+      .exec();
+
+    const postsOfUserFriends = currentUser.friends.reduce(
+      (allPosts, nextFriends) => {
+        let newPosts = nextFriends.posts;
+        return [...allPosts, ...newPosts];
+      },
+      []
+    );
+    const postSortedByDate = await Post.find()
+      .where("_id")
+      .in(postsOfUserFriends)
+      .sort({ date_posted: "descending" })
+      .exec();
+    return res.json(postSortedByDate);
+  } catch (err) {
+    return res.status(403).send("There was an error");
+  }
 });
+
+//New Post
 router.post("/new/post", verifyToken, async (req, res) => {
   let currentUserData = getTokenData(req.headers["authorization"]);
 
@@ -24,8 +45,9 @@ router.post("/new/post", verifyToken, async (req, res) => {
       title,
       content,
     };
-    const newPost = await new Post(postContent);
+    const newPost = new Post(postContent);
     // currentUser.posts = [];
+
     currentUser.posts.push(newPost._id);
     newPost.save();
     currentUser.save();
