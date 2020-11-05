@@ -1,4 +1,4 @@
-const login = (formData) => {
+const login = async (formData) => {
   const data = new FormData(formData);
 
   const dataJson = [...data.entries()].reduce((obj, current) => {
@@ -13,7 +13,6 @@ const login = (formData) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       localStorage.setItem("jwtToken", `Bearer ${data.token}`);
     })
     .catch((err) => console.log(err));

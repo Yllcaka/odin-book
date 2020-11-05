@@ -19,6 +19,7 @@ const App = () => {
           <Route path="/profile/:id">
             <Profile />
           </Route>
+
           <Route path="/register">
             <Register />
           </Route>

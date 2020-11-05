@@ -1,10 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import homeApi from "../api/home";
+import Post from "./Post";
 const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [postsData, setPostsData] = useState([]);
   useEffect(() => {
-    homeApi();
+    (async () => {
+      const postsDataApi = await homeApi();
+      setPostsData(postsDataApi);
+    })();
   }, []);
-  return <div>Home</div>;
+  useEffect(() => {
+    if (postsData) {
+      let newPosts = postsData.map((post) => {
+        return <Post key={post._id} {...post} author={post.author.username} />;
+      });
+      setPosts(newPosts);
+    }
+  }, [postsData]);
+
+  return <div>{posts}</div>;
 };
 
 export default Home;

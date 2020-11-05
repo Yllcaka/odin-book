@@ -1,5 +1,5 @@
-const Home = () => {
-  fetch("/api/home", {
+const Home = async () => {
+  const posts = await fetch("/api/home", {
     // method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -9,8 +9,9 @@ const Home = () => {
   })
     // .then((res) => console.log(res))
     .then((res) => res.json())
-    .then((data) => console.log(data))
     .catch((err) => console.error(err));
+  console.log(posts);
+  return posts;
 };
 
 export default Home;

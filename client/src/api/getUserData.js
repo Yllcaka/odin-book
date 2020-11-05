@@ -6,6 +6,7 @@ const getUserData = () => {
       authorization: localStorage.getItem("jwtToken"),
     },
     mode: "cors",
+    method: "GET",
   })
     .then((res) => res.json())
     .then((data) => (userData = data))

@@ -23,6 +23,7 @@ router.get("/", verifyToken, async (req, res) => {
     const postSortedByDate = await Post.find()
       .where("_id")
       .in(postsOfUserFriends)
+      .populate("author", "username")
       .sort({ date_posted: "descending" })
       .exec();
     return res.json(postSortedByDate);

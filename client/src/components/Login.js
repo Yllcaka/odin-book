@@ -9,14 +9,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const selector = useSelector((state) => state.user);
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    loginApi(e.target);
+    await loginApi(e.target);
     // getUserData();
-    // dispatch({
-    //   type: "LOG_IN",
-    // });
-    // useSelector((state) => console.log(state));
+    dispatch({
+      type: "LOG_IN",
+    });
+    console.log(selector);
   });
   return (
     <Form onSubmit={handleSubmit}>
