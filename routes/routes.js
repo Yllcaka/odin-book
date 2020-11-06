@@ -5,12 +5,15 @@ const homeRouter = require("./home");
 const profileRouter = require("./profile");
 const loginRouter = require("./login");
 const registerRouter = require("./register");
+const postRouter = require("./post");
 const user = require("../models/user");
 
 router.use("/home", homeRouter);
 router.use("/profile", profileRouter);
 router.use("/login", loginRouter);
 router.use("/register", registerRouter);
+router.use("/post", postRouter);
+
 router.get("/users", (req, res) => {
   user.find({}).exec((err, doc) => res.json(doc));
 });

@@ -17,7 +17,7 @@ const Login = () => {
     dispatch({
       type: "LOG_IN",
     });
-    console.log(selector);
+    console.log("The selector that is used:", selector);
   });
   return (
     <Form onSubmit={handleSubmit}>

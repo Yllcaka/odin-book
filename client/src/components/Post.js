@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ThumbUp } from "@material-ui/icons";
+import { useSelector } from "react-redux";
+import postApi from "../api/postApi";
 import {
   Card,
   CardHeader,
@@ -10,13 +12,22 @@ import {
   IconButton,
   colors,
 } from "@material-ui/core";
-const Post = ({ title, author, content, postDate, likes, comments }) => {
-  const [liked, setLiked] = useState(false);
-  const [allLikes, setAllLikes] = useState(likes + 1);
-  console.log("Outside the callback", liked);
+const Post = ({
+  title,
+  author,
+  content,
+  postDate,
+  likes,
+  comments,
+  _id: id,
+}) => {
+  const [liked, setLiked] = useState();
+  const [allLikes, setAllLikes] = useState(likes.length + 1);
+
   const handleLike = useCallback(() => {
+    postApi.likePost(id);
     setLiked(!liked);
-    console.log("Inside the callBack", liked);
+    // console.log("Inside the callBack", liked);
   });
   useEffect(() => {
     setAllLikes(liked ? allLikes + 1 : allLikes - 1);

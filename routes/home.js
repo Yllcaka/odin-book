@@ -33,29 +33,5 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 //New Post
-router.post("/new/post", verifyToken, async (req, res) => {
-  let currentUserData = getTokenData(req.headers["authorization"]);
-
-  const { title, content } = req.body;
-
-  try {
-    const currentUser = await User.findById(currentUserData._id).exec();
-    console.log(currentUser);
-    let postContent = {
-      author: currentUser._id,
-      title,
-      content,
-    };
-    const newPost = new Post(postContent);
-    // currentUser.posts = [];
-
-    currentUser.posts.push(newPost._id);
-    newPost.save();
-    currentUser.save();
-    res.json(currentUser);
-  } catch {
-    res.status(401).send("Bad Request");
-  }
-});
 
 module.exports = router;

@@ -5,8 +5,6 @@ const { verifyToken, getTokenData } = require("../api/webToken");
 const User = require("../models/user");
 
 router.get("/", verifyToken, (req, res) => {
-  // jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
-  // if (err) return res.sendStatus(403);
   try {
     const {
       user: { password, ...user },
