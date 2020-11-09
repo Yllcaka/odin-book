@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ThumbUp } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+
+import { ThumbUp, Add } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
 import postApi from "../api/postApi";
 import {
   Card,
@@ -12,6 +14,14 @@ import {
   IconButton,
   colors,
 } from "@material-ui/core";
+import styled from "styled-components";
+import Comments from "./Comments";
+
+const CardStyled = styled(Card)`
+  max-width: 800px;
+  margin: 10px auto;
+`;
+
 const Post = ({
   title,
   author,
@@ -27,14 +37,20 @@ const Post = ({
   const handleLike = useCallback(() => {
     postApi.likePost(id);
     setLiked(!liked);
-    // console.log("Inside the callBack", liked);
   });
   useEffect(() => {
     setAllLikes(liked ? allLikes + 1 : allLikes - 1);
   }, [liked]);
   return (
-    <Card>
-      <CardHeader title={title} avatar={<Avatar>{author[0]}</Avatar>} />
+    <CardStyled>
+      <CardHeader
+        title={title}
+        avatar={
+          <Link to={`/profile/${id}`}>
+            <Avatar>{author[0]}</Avatar>
+          </Link>
+        }
+      />
       <CardContent>
         <Typography>{content}</Typography>
       </CardContent>
@@ -44,7 +60,8 @@ const Post = ({
         </IconButton>
         {allLikes}
       </CardActions>
-    </Card>
+      <Comments comments={comments} />
+    </CardStyled>
   );
 };
 

@@ -3,9 +3,10 @@ import { Form, Label } from "./styles/formStyle";
 import Button from "./styles/Button";
 import Input from "./styles/Input";
 import loginApi from "../api/login";
-import getUserData from "../api/getUserData";
+
 import { FormControl } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
+import getUserDataAction from "../containers/actions/getUser";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,7 @@ const Login = () => {
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     await loginApi(e.target);
-    // getUserData();
-    dispatch({
-      type: "LOG_IN",
-    });
+    dispatch(getUserDataAction());
     console.log("The selector that is used:", selector);
   });
   return (

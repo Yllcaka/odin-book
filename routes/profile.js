@@ -5,16 +5,18 @@ const { verifyToken, getTokenData } = require("../api/webToken");
 const User = require("../models/user");
 
 router.get("/", verifyToken, (req, res) => {
+  return res.json(getTokenData(req.headers["authorization"]));
+});
+
+router.get("/:id", async (req, res) => {
   try {
-    const {
-      user: { password, ...user },
-    } = authData;
+    const user = await User.findById(req.params.id);
     console.log(user);
+    const { password, ...userData } = user;
     return res.json(user);
-  } catch {
-    return res.sendStatus(403);
+  } catch (err) {
+    return res.status(404).send(err.message);
   }
-  // });
 });
 router.post("/add/friend", verifyToken, async (req, res) => {
   const { newFriendId } = req.body;

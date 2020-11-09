@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Nav from "./Nav";
@@ -10,7 +10,12 @@ import "./styles/style.css";
 //Redux Shiz
 import { Provider } from "react-redux";
 import store from "../containers/store";
+import getUserData from "../containers/actions/getUser";
+
 const App = () => {
+  useEffect(() => {
+    store.dispatch(getUserData());
+  }, []);
   return (
     <Provider store={store}>
       <Router>
@@ -26,7 +31,7 @@ const App = () => {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/">
+          <Route path="/" exact>
             <Home />
           </Route>
         </Switch>

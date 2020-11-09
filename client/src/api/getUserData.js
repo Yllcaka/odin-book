@@ -1,6 +1,5 @@
-const getUserData = () => {
-  let userData;
-  let fetching = fetch("/api/profile", {
+const getUserData = async () => {
+  let userData = await fetch("/api/profile", {
     headers: {
       "Content-Type": "application/json",
       authorization: localStorage.getItem("jwtToken"),
@@ -9,10 +8,10 @@ const getUserData = () => {
     method: "GET",
   })
     .then((res) => res.json())
-    .then((data) => (userData = data))
-    .then((data) => data)
+
     .catch((err) => console.error(err));
-  console.log(fetching);
+
+  return userData;
 };
 
 export default getUserData;

@@ -5,23 +5,24 @@ import { useSelector } from "react-redux";
 const Nav = () => {
   // useState()
   const selector = useSelector((state) => state.user);
-  console.log(selector);
   return (
     <div>
       <NavStyle>
         <div>Logo</div>
         <ul>
-          <li>
-            <NavLink activeClassName="active" to="/" exact={true}>
-              Home
-            </NavLink>
-          </li>
-          {selector.token ? (
-            <li>
-              <NavLink activeClassName="active" to="/profile">
-                Profile
-              </NavLink>
-            </li>
+          {selector.username ? (
+            <>
+              <li>
+                <NavLink activeClassName="active" to="/" exact={true}>
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink activeClassName="active" to="/profile">
+                  Profile
+                </NavLink>
+              </li>
+            </>
           ) : (
             <>
               <li>
