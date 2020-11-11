@@ -7,9 +7,7 @@ const Profile = () => {
   console.log(id);
   const [profileData, setProfileData] = useState(null);
   const changeProfileData = () => {
-    getProfileData(id)
-      .then((res) => setProfileData(res))
-      .then(() => console.log(profileData));
+    getProfileData(id).then((res) => setProfileData(res));
   };
   useEffect(() => {
     changeProfileData();

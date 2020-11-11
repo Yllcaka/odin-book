@@ -10,12 +10,13 @@ router.get("/", verifyToken, (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate(
-      "friends",
-      "username profilePic"
-    );
+    const user = await User.findById(req.params.id)
+      .select("-password")
+      .populate("friends", "username profilePic");
     console.log(user);
-    const { password, ...userData } = user;
+    // const { password, ...userData } = { ...user };
+    console.log(user);
+
     return res.json(user);
   } catch (err) {
     return res.status(404).send(err.message);

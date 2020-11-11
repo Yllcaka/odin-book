@@ -13,8 +13,7 @@ import {
 import FriendList from "./FriendList";
 const ProfileCard = ({ id, profile }) => {
   const { firstname, lastname, profilePic, username, friends } = profile;
-  // console.log("This should happen after");
-  console.log(friends);
+
   return (
     <div>
       <Card>

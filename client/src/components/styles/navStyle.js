@@ -13,6 +13,7 @@ const NavStyle = styled.nav`
     flex-direction: row;
     list-style: none;
     justify-content: space-between;
+    align-items: center;
     li {
       margin-right: 5px;
       a {

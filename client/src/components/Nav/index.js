@@ -1,17 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { NavStyle } from "./styles/navStyle";
+import { NavStyle } from "../styles/navStyle";
 import { useSelector } from "react-redux";
+import ProfileTab from "./ProfileTab";
+
 const Nav = () => {
-  // useState()
-  let selector = useSelector((state) => state.user);
-  const { _id: userId } = selector;
+  let user = useSelector((state) => state.user);
+  const { _id: userId } = user;
   return (
     <div>
       <NavStyle>
         <div>Logo</div>
         <ul>
-          {selector.username ? (
+          {user.username ? (
             <>
               <li>
                 <NavLink activeClassName="active" to="/" exact={true}>
@@ -19,9 +20,11 @@ const Nav = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink activeClassName="active" to={"/profile/" + userId}>
-                  Profile
-                </NavLink>
+                <ProfileTab
+                  activeClassName="active"
+                  user={user}
+                  to={"/profile/" + userId}
+                />
               </li>
             </>
           ) : (
