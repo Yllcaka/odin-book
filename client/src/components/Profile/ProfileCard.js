@@ -10,17 +10,24 @@ import {
   IconButton,
   colors,
 } from "@material-ui/core";
-
-const ProfileCard = ({ profile }) => {
-  const { firstname, lastname, profilePic, username } = profile;
+import FriendList from "./FriendList";
+const ProfileCard = ({ id, profile }) => {
+  const { firstname, lastname, profilePic, username, friends } = profile;
+  // console.log("This should happen after");
+  console.log(friends);
   return (
     <div>
       <Card>
         <CardHeader
           title={username}
-          avatar={<Avatar>{profilePic ? profilePic : username[0]}</Avatar>}
+          avatar={
+            <Avatar>
+              {profilePic ? profilePic : username[0].toUpperCase()}
+            </Avatar>
+          }
         />
-        <CardContent>Full Name: ${`${firstname} ${lastname}`}</CardContent>
+        <CardContent>Full Name: {`${firstname} ${lastname}`}</CardContent>
+        <FriendList friends={friends} />
       </Card>
     </div>
   );
