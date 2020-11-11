@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {
     if (postsData) {
       let newPosts = postsData.map((post) => {
-        return <Post key={post._id} {...post} author={post.author.username} />;
+        return <Post key={post._id} {...post} />;
       });
       setPosts(newPosts);
     }
