@@ -1,13 +1,12 @@
 import React from "react";
 import { AvatarNavLink } from "../styles/AvatarLink";
-import { Avatar } from "@material-ui/core";
 
+import Avatar from "../Avatar";
 const ProfileTab = ({ user, ...props }) => {
+  const { profilePic, username } = user;
   return (
     <AvatarNavLink {...props}>
-      <Avatar>
-        {user.profilePic ? user.profilePic : user.username[0].toUpperCase()}
-      </Avatar>
+      <Avatar profilePic={profilePic} username={username} />
     </AvatarNavLink>
   );
 };

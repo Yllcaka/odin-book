@@ -23,7 +23,7 @@ const server = http.createServer(app);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(__dirname + "/public"));
 app.use("/api", apiRouter);
 
 server.listen(PORT, () => console.log("Listening on port:", PORT));

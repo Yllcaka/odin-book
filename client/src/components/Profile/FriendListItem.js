@@ -3,8 +3,10 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Avatar,
+  // Avatar,
 } from "@material-ui/core";
+import Avatar from "../Avatar";
+
 import { AvatarLink as Link } from "../styles/AvatarLink";
 
 const FriendListItem = ({ user }) => {
@@ -13,7 +15,7 @@ const FriendListItem = ({ user }) => {
     <ListItem>
       <ListItemAvatar>
         <Link to={`/profile/${id}`}>
-          <Avatar>{profilePic ? profilePic : username[0].toUpperCase()}</Avatar>
+          <Avatar profilePic={profilePic} username={username} />
         </Link>
       </ListItemAvatar>
       <ListItemText primary={username} />

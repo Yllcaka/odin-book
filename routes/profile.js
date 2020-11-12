@@ -1,11 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images/userProfilePic");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
 const { verifyToken, getTokenData } = require("../api/webToken");
 const User = require("../models/user");
 
 router.get("/", verifyToken, (req, res) => {
-  return res.json(getTokenData(req.headers["authorization"]));
+  const tokenData = getTokenData(req.headers["authorization"]);
+  return res.json(tokenData);
 });
 
 router.get("/:id", async (req, res) => {
@@ -13,9 +24,6 @@ router.get("/:id", async (req, res) => {
     const user = await User.findById(req.params.id)
       .select("-password")
       .populate("friends", "username profilePic");
-    console.log(user);
-    // const { password, ...userData } = { ...user };
-    console.log(user);
 
     return res.json(user);
   } catch (err) {
@@ -44,3 +52,25 @@ router.post("/add/friend", verifyToken, async (req, res) => {
   }
 });
 module.exports = router;
+
+router.post(
+  "/new/profilePic",
+  verifyToken,
+  upload.single("profilePic"),
+  async (req, res) => {
+    try {
+      console.log(req.file);
+      const currentUserData = getTokenData(req.headers["authorization"]);
+      const { _id: userId } = currentUserData;
+      const currentUser = await User.findById(userId);
+      const filePath = req.file.path;
+      console.log(filePath);
+      currentUser.profilePic = filePath.substr(filePath.indexOf("\\"));
+      console.log(currentUser.profilePic);
+      currentUser.save();
+      res.send("It ended");
+    } catch {
+      return res.status(404).send("Image not uploading");
+    }
+  }
+);
