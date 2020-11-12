@@ -1,4 +1,5 @@
 const postApi = (() => {
+  //Like post Api
   const likePost = (postId) => {
     console.log(postId);
     fetch("/api/post/update", {
@@ -13,7 +14,28 @@ const postApi = (() => {
       method: "POST",
     });
   };
-  return { likePost };
+  //Create a new post
+  const newPost = async (formData) => {
+    const data = new FormData(formData);
+
+    const dataJson = [...data.entries()].reduce((obj, current) => {
+      obj[current[0]] = current[1];
+      return obj;
+    }, {});
+    fetch("/api/post/new", {
+      method: "POST",
+      body: JSON.stringify(dataJson),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("jwtToken"),
+      },
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  };
+
+  return { likePost, newPost };
 })();
 
 export default postApi;

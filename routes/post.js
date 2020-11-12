@@ -8,12 +8,12 @@ const Post = require("../models/post");
 //New Post
 router.post("/new", verifyToken, async (req, res) => {
   let currentUserData = getTokenData(req.headers["authorization"]);
-
+  console.log(req.body);
   const { title, content } = req.body;
 
   try {
     const currentUser = await User.findById(currentUserData._id).exec();
-    console.log(currentUser);
+
     let postContent = {
       author: currentUser._id,
       title,

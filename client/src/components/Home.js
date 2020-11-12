@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import homeApi from "../api/home";
 import Post from "./Post";
+import CreatePost from "./CreatePost";
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [postsData, setPostsData] = useState([]);
@@ -19,7 +20,12 @@ const Home = () => {
     }
   }, [postsData]);
 
-  return <div>{posts}</div>;
+  return (
+    <div>
+      <CreatePost />
+      {posts}
+    </div>
+  );
 };
 
 export default Home;

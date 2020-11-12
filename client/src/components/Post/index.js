@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { ThumbUp } from "@material-ui/icons";
-import postApi from "../api/postApi";
+
+import postApi from "../../api/postApi";
+import Like from "./Like";
 import {
   Card,
   CardHeader,
@@ -10,11 +11,10 @@ import {
   Avatar,
   Typography,
   IconButton,
-  colors,
 } from "@material-ui/core";
 import styled from "styled-components";
-import Comments from "./Comments";
-import { AvatarLink as Link } from "./styles/AvatarLink";
+import Comments from "../Comments";
+import { AvatarLink as Link } from "../styles/AvatarLink";
 const CardStyled = styled(Card)`
   max-width: 800px;
   margin: 10px auto;
@@ -30,17 +30,20 @@ const Post = ({
   _id: id,
 }) => {
   const selector = useSelector((state) => state.user);
-
+  //The post State
   const [liked, setLiked] = useState(likes.includes(selector._id));
   const [allLikes, setAllLikes] = useState(likes.length);
+  //Animation
 
   const postDate = new Date(date_posted).toLocaleString();
 
   const handleLike = useCallback(() => {
+    //Posts the like data to the database
     postApi.likePost(id);
+    //Changes the number of likes shown on the post
     setAllLikes(liked ? allLikes - 1 : allLikes + 1);
+    //Likes the post if user hasn't already liked it
     setLiked(!liked);
-    console.log("Liked");
   });
   // useEffect(() => {}, [liked]);
   return (
@@ -59,7 +62,7 @@ const Post = ({
       </CardContent>
       <CardActions>
         <IconButton onClick={handleLike}>
-          <ThumbUp style={liked ? { color: colors.red[500] } : {}} />
+          <Like onLike={liked} />
         </IconButton>
         {allLikes}
       </CardActions>
