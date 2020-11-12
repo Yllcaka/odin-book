@@ -1,12 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { NavStyle } from "../styles/navStyle";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ProfileTab from "./ProfileTab";
-
+import logOut from "../../containers/actions/logOut";
+import Button from "../styles/Button";
 const Nav = () => {
   let user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const { _id: userId } = user;
+  const handleLogOut = () => {
+    localStorage.clear();
+    dispatch(logOut());
+  };
   return (
     <div>
       <NavStyle>
@@ -25,6 +31,9 @@ const Nav = () => {
                   user={user}
                   to={"/profile/" + userId}
                 />
+              </li>
+              <li>
+                <Button onClick={handleLogOut}>Log-Out</Button>
               </li>
             </>
           ) : (
