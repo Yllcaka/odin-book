@@ -5,17 +5,15 @@ import Input from "./styles/Input";
 import loginApi from "../api/login";
 
 import { FormControl } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import getUserDataAction from "../containers/actions/getUser";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state.user);
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     await loginApi(e.target);
     dispatch(getUserDataAction());
-    console.log("The selector that is used:", selector);
   });
   return (
     <Form onSubmit={handleSubmit}>

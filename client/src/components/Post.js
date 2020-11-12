@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-
-import { ThumbUp, Add } from "@material-ui/icons";
+import { useSelector } from "react-redux";
+import { ThumbUp } from "@material-ui/icons";
 import postApi from "../api/postApi";
 import {
   Card,
@@ -29,17 +29,20 @@ const Post = ({
   comments,
   _id: id,
 }) => {
+  const selector = useSelector((state) => state.user);
+
+  const [liked, setLiked] = useState(likes.includes(selector._id));
+  const [allLikes, setAllLikes] = useState(likes.length);
+
   const postDate = new Date(date_posted).toLocaleString();
-  const [liked, setLiked] = useState();
-  const [allLikes, setAllLikes] = useState(likes.length + 1);
 
   const handleLike = useCallback(() => {
     postApi.likePost(id);
+    setAllLikes(liked ? allLikes - 1 : allLikes + 1);
     setLiked(!liked);
+    console.log("Liked");
   });
-  useEffect(() => {
-    setAllLikes(liked ? allLikes + 1 : allLikes - 1);
-  }, [liked]);
+  // useEffect(() => {}, [liked]);
   return (
     <CardStyled>
       <CardHeader
