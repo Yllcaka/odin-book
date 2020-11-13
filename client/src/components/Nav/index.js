@@ -1,6 +1,10 @@
 import React from "react";
 import { NavStyle, NavLink } from "../styles/navStyle";
-import { Home } from "@material-ui/icons";
+import {
+  Home,
+  VpnKey as LogIn,
+  VpnKeyOutlined as SignUp,
+} from "@material-ui/icons";
 import { useSelector } from "react-redux";
 import DrawerNav from "./Drawer";
 import ProfileTab from "./ProfileTab";
@@ -10,8 +14,8 @@ const Nav = () => {
   const links = {
     loggedIn: [{ icon: <Home />, name: "Home", to: "/", exact: true }],
     loggedOut: [
-      { name: "Register", to: "/" },
-      { name: "Login", to: "/" },
+      { icon: <SignUp />, name: "Register", to: "/register" },
+      { icon: <LogIn />, name: "Login", to: "/login" },
     ],
   };
 

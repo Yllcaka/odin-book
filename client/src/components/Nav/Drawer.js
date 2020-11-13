@@ -5,10 +5,15 @@ import DrawerItem from "./DrawerItem";
 
 const DrawerNav = ({ links, profile }) => {
   const [open, setOpen] = useState(false);
-
+  const drawerSize = "200px";
+  const marginRight = "10px";
   return (
-    <Drawer variant="permanent" anchor="left">
-      <List>
+    <Drawer
+      style={{ width: drawerSize, marginRight }}
+      variant="permanent"
+      anchor="left"
+    >
+      <List style={{ width: drawerSize }}>
         {links.map((link) => (
           <DrawerItem item={link} />
         ))}

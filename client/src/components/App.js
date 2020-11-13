@@ -19,22 +19,24 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Nav />
-        <Switch>
-          <Route path="/profile/:id">
-            <Profile />
-          </Route>
+        <div style={{ display: "flex" }}>
+          <Nav />
+          <Switch>
+            <Route path="/profile/:id">
+              <Profile />
+            </Route>
 
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-        </Switch>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+          </Switch>
+        </div>
       </Router>
     </Provider>
   );
