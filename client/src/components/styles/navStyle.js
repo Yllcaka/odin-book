@@ -1,3 +1,4 @@
+import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 const red = "#b61827";
@@ -16,21 +17,23 @@ const NavStyle = styled.nav`
     align-items: center;
     li {
       margin-right: 5px;
-      a {
-        color: black;
-        text-decoration: none;
-        text-decoration: none;
-        &.active {
-          color: ${red};
-          font-weight: bold;
-        }
-        :hover {
-          color: ${red};
-        }
-      }
     }
     // width: 100%;
   }
 `;
 
-export { NavStyle };
+const NavLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  &.active {
+    color: ${red};
+    font-weight: bold;
+  }
+  :hover {
+    color: ${red};
+  }
+`;
+
+export { NavStyle, NavLink };

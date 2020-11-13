@@ -1,7 +1,6 @@
 const postApi = (() => {
   //Like post Api
   const likePost = (postId) => {
-    console.log(postId);
     fetch("/api/post/update", {
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +31,7 @@ const postApi = (() => {
       },
     })
       .then((res) => res.json())
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   return { likePost, newPost };

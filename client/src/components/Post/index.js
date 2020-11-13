@@ -8,13 +8,13 @@ import {
   CardHeader,
   CardContent,
   CardActions,
-  Avatar,
   Typography,
   IconButton,
 } from "@material-ui/core";
 import styled from "styled-components";
 import Comments from "../Comments";
 import { AvatarLink as Link } from "../styles/AvatarLink";
+import Avatar from "../Avatar";
 const CardStyled = styled(Card)`
   max-width: 800px;
   margin: 10px auto;
@@ -34,6 +34,7 @@ const Post = ({
   const [liked, setLiked] = useState(likes.includes(selector._id));
   const [allLikes, setAllLikes] = useState(likes.length);
   //Animation
+  console.log("The author's data:", author);
 
   const postDate = new Date(date_posted).toLocaleString();
 
@@ -52,7 +53,7 @@ const Post = ({
         title={title}
         avatar={
           <Link to={`/profile/${author._id}`}>
-            <Avatar>{author.username[0]}</Avatar>
+            <Avatar profilePic={author.profilePic} username={author.username} />
           </Link>
         }
       />

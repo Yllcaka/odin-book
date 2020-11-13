@@ -8,7 +8,7 @@ const Post = require("../models/post");
 //New Post
 router.post("/new", verifyToken, async (req, res) => {
   let currentUserData = getTokenData(req.headers["authorization"]);
-  console.log(req.body);
+
   const { title, content } = req.body;
 
   try {
@@ -32,7 +32,6 @@ router.post("/new", verifyToken, async (req, res) => {
 
 //Like Post
 router.post("/update", verifyToken, async (req, res) => {
-  console.log("IS it happening");
   try {
     //Get the user id
     let currentUserData = getTokenData(req.headers["authorization"]);

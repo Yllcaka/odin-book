@@ -11,6 +11,7 @@ import { AvatarLink as Link } from "../styles/AvatarLink";
 
 const FriendListItem = ({ user }) => {
   const { _id: id, username, profilePic } = user;
+
   return (
     <ListItem>
       <ListItemAvatar>

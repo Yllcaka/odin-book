@@ -15,7 +15,7 @@ const login = async (formData) => {
     .then((data) => {
       localStorage.setItem("jwtToken", `Bearer ${data.token}`);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 export default login;

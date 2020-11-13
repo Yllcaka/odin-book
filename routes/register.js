@@ -6,7 +6,6 @@ const User = require("../models/user");
 router.get("/", (req, res) => res.json({ message: "Register" }));
 
 router.post("/", async (req, res, next) => {
-  // console.log(req.body.json());
   try {
     const userExists = await User.exists({ email: req.body.email });
     if (userExists) {

@@ -12,7 +12,7 @@ const register = (formData) => {
     headers: { "Content-Type": "application/json" },
   })
     // .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 export default register;

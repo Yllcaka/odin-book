@@ -1,21 +1,26 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { NavStyle } from "../styles/navStyle";
-import { useSelector, useDispatch } from "react-redux";
+import { NavStyle, NavLink } from "../styles/navStyle";
+import { Home } from "@material-ui/icons";
+import { useSelector } from "react-redux";
+import DrawerNav from "./Drawer";
 import ProfileTab from "./ProfileTab";
-import logOut from "../../containers/actions/logOut";
-import Button from "../styles/Button";
+
 const Nav = () => {
   let user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const { _id: userId } = user;
-  const handleLogOut = () => {
-    localStorage.clear();
-    dispatch(logOut());
+  const links = {
+    loggedIn: [{ icon: <Home />, name: "Home", to: "/", exact: true }],
+    loggedOut: [
+      { name: "Register", to: "/" },
+      { name: "Login", to: "/" },
+    ],
   };
-  return (
-    <div>
-      <NavStyle>
+
+  return user.username ? (
+    <DrawerNav links={links.loggedIn} profile={<ProfileTab user={user} />} />
+  ) : (
+    <DrawerNav links={links.loggedOut} />
+  );
+  /* <NavStyle>
         <div>Logo</div>
         <ul>
           {user.username ? (
@@ -25,16 +30,7 @@ const Nav = () => {
                   Home
                 </NavLink>
               </li>
-              <li>
-                <ProfileTab
-                  activeClassName="active"
-                  user={user}
-                  to={"/profile/" + userId}
-                />
-              </li>
-              <li>
-                <Button onClick={handleLogOut}>Log-Out</Button>
-              </li>
+              <ProfileTab user={user} />
             </>
           ) : (
             <>
@@ -51,9 +47,7 @@ const Nav = () => {
             </>
           )}
         </ul>
-      </NavStyle>
-    </div>
-  );
+      </NavStyle> */
 };
 
 export default Nav;

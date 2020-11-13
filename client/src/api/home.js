@@ -8,11 +8,10 @@ const Home = async () => {
     mode: "cors",
   })
     .then((res) => {
-      console.log(res);
       return res.json();
     })
     .catch((err) => console.error(err));
-  console.log(posts);
+
   return posts;
 };
 

@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
     return res.status(404).send(err.message);
   }
 });
-router.post("/add/friend", verifyToken, async (req, res) => {
+router.put("/add/friend", verifyToken, async (req, res) => {
   const { newFriendId } = req.body;
   try {
     //Get the token data of the currently logged in user
@@ -53,20 +53,19 @@ router.post("/add/friend", verifyToken, async (req, res) => {
 });
 module.exports = router;
 
-router.post(
+router.put(
   "/new/profilePic",
   verifyToken,
   upload.single("profilePic"),
   async (req, res) => {
     try {
-      console.log(req.file);
       const currentUserData = getTokenData(req.headers["authorization"]);
       const { _id: userId } = currentUserData;
       const currentUser = await User.findById(userId);
       const filePath = req.file.path;
-      console.log(filePath);
+
       currentUser.profilePic = filePath.substr(filePath.indexOf("\\"));
-      console.log(currentUser.profilePic);
+
       currentUser.save();
       res.send("It ended");
     } catch {
